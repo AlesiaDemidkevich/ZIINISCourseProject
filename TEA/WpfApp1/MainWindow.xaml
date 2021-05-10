@@ -1,0 +1,60 @@
+﻿<Window x:Class="Tea.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tea"
+        Title="Tiny Encryption Algorithm" Height="549.2" Width="800" ResizeMode="CanMinimize" Background="White">
+    <Grid Margin="0,0,-0.4,0.2">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                <GradientStop Color="#FF4D5647"/>
+                <GradientStop Color="#FF82A26E" Offset="0.309"/>
+                <GradientStop Color="#FF929D8D" Offset="0.995"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Ключ" HorizontalAlignment="Left" Margin="29,27,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
+        <Label Content="Исходный текст" HorizontalAlignment="Left" Margin="34,67,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
+        <TextBox x:Name="tbSource" HorizontalAlignment="Left" FontSize="13" BorderBrush="Silver" BorderThickness="2" SelectionBrush="Black" Height="78" Margin="34,93,0,0" Background="#FFE7E3E3" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="198"/>
+        <Button Click="Encrypt_Click" x:Name="Encrypt" Content="Шифрование" IsEnabled="false" HorizontalAlignment="Left" Template="{StaticResource ButtonTemplate}" Margin="253,110,0,0" VerticalAlignment="Top" Width="140" Height="30" RenderTransformOrigin="-1.662,0.707"/>
+        <Label Content="Зашифрованный текст" HorizontalAlignment="Left" Margin="34,206,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
+        <TextBox x:Name="tbEncoded" HorizontalAlignment="Left" Height="78" BorderBrush="Silver" BorderThickness="2" SelectionBrush="Black" Margin="34,232,0,0" TextWrapping="Wrap" FontSize="13" Background="#FFE7E3E3"
+             Text="" VerticalAlignment="Top" Width="198"/>
+        <Button Click="btDecode_Click" x:Name="btDecode" Content="Расшифровать" HorizontalAlignment="Left" Template="{StaticResource ButtonTemplate}"
+            IsEnabled="false" Margin="122,315,0,0" VerticalAlignment="Top" Width="110" Height="30"/>
+        <Label Content="K0" HorizontalAlignment="Left" Margin="253,28,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"
+           RenderTransformOrigin="0.49,-0.461"/>
+        <TextBox x:Name="K0" HorizontalAlignment="Left" Height="23" Margin="282,31,0,0" BorderBrush="Silver" BorderThickness="2" SelectionBrush="Black" TextWrapping="Wrap" Text="" FontSize="13" Background="#FFE7E3E3"
+             VerticalAlignment="Top" Width="217"/>
+        <Label Content="K1" HorizontalAlignment="Left" Margin="253,59,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"
+           RenderTransformOrigin="0.49,-0.461"/>
+        <Label Content="K2" HorizontalAlignment="Left" Margin="504,31,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"
+           RenderTransformOrigin="0.49,-0.461"/>
+        <Label Content="K3" HorizontalAlignment="Left" Margin="504,59,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"
+           RenderTransformOrigin="0.208,-0.156"/>
+        <TextBox x:Name="K2" HorizontalAlignment="Left" Height="23" Margin="533,31,0,0" BorderBrush="Silver" BorderThickness="2" SelectionBrush="Black" TextWrapping="Wrap" Background="#FFE7E3E3" FontSize="13" Text=""
+             VerticalAlignment="Top" Width="217"/>
+        <TextBox x:Name="K1" HorizontalAlignment="Left" Height="23" Margin="282,62,0,0" BorderBrush="Silver" BorderThickness="2" SelectionBrush="Black" TextWrapping="Wrap" FontSize="13" Background="#FFE7E3E3" Text=""
+             VerticalAlignment="Top" Width="217"/>
+        <TextBox x:Name="K3" HorizontalAlignment="Left" Height="23" Margin="533,59,0,0"  BorderBrush="Silver" BorderThickness="2" SelectionBrush="Black" TextWrapping="Wrap" Background="#FFE7E3E3" FontSize="13" Text=""
+             VerticalAlignment="Top" Width="217"/>
+        <Button Click="Decrypt_Click" x:Name="Decrypt" Content="Дешифрование" HorizontalAlignment="Left" Template="{StaticResource ButtonTemplate}"
+            IsEnabled="false" Margin="430,110,0,0" VerticalAlignment="Top" Width="149" Height="30"/>
+        <Button Click="Generate_keys_Click" x:Name="Generate_keys" Content="Генерация ключей" Template="{StaticResource ButtonTemplate}"
+            HorizontalAlignment="Left" IsEnabled="false" Margin="607,110,0,0" VerticalAlignment="Top"
+            Width="143" Height="30"/>
+        <TextBox x:Name="Inf" HorizontalAlignment="Left" IsReadOnly="true" Height="306" BorderBrush="Silver" BorderThickness="2" SelectionBrush="Black"  Margin="253,158,0,0" FontSize="13" Background="#FFE7E3E3"
+             TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="497"/>
+        <Button Click="btEncode_Click" x:Name="btEncode" Content="Зашифровать" HorizontalAlignment="Left" Template="{StaticResource ButtonTemplate}" IsEnabled="false" Margin="122,176,0,0" VerticalAlignment="Top" Width="110" Height="30"/>
+        <TextBox x:Name="tbDecoded" HorizontalAlignment="Left" Height="78" BorderBrush="Silver" BorderThickness="2" SelectionBrush="Black" Margin="34,386,0,0" TextWrapping="Wrap" FontSize="13" Background="#FFE7E3E3"
+             Text="" VerticalAlignment="Top" Width="198"/>
+        <Label Content="Расшифрованный текст" HorizontalAlignment="Left" Margin="34,355,0,0" Foreground="White" FontSize="16"
+           VerticalAlignment="Top"/>
+        <TextBox LostFocus="tbPassword_TextChanged" x:Name="tbPassword" HorizontalAlignment="Left" Height="23" FontSize="13" Background="#FFE7E3E3" BorderBrush="Silver"
+             Margin="79,31,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="153" BorderThickness="2"
+             RenderTransformOrigin="0.502,-0.07" SelectionBrush="Black"/>
+    </Grid>
+</Window>
